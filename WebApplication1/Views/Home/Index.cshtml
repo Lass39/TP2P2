@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model WebApplication1.Controllers.HomeController.Root
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <label for="voos">Choose a car:</label>
+
+    <select name="voos" id="voo">
+        @{
+
+            foreach (var test in Model.movimento.voo)
+            {
+                string a = "{ " +
+        "\"codigo\": \" "+test.codigo+" \","+
+        "\"origem\": \" " +test.origem+"\"," +
+        "\"destino\": \" "+test.destino+" \", "+
+        "\"horario\": \" "+test.horario+" \","+
+        "\"compania\": \" "+test.compania+ "\","+
+        "\"operando\": \" "+test.operando+" \""+
+      "}";
+
+                <option value=@a>@test.codigo</option>
+            }
+        }
+    </select>
+
+    <table>
+        <tr>
+            <th>Codigo</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Horario</th>
+            <th>Compania</th>
+            <th>Operando</th>
+        </tr>
+        @{
+                                @foreach (var item in Model.movimento.voo)
+            {
+                                    <tr>
+                                        <td>@item.codigo</td>
+                                    <td>@item.origem</td>
+                                    <td>@item.destino</td>
+                                    <td>@item.horario</td>
+                                    <td>@item.compania</td>
+                                    <td>@item.operando</td>
+                                    </tr>
+            }
+        }
+
+    </table>
+
+</div>
+
+            <script>
+
+
+    document.getElementById("voo").onchange = function () {
+
+        var x = document.getElementById("voo");
+        download("TP.JSON",x.value)
+    
+    };
+
+      
+
+
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+            </script>
